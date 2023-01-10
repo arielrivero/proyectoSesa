@@ -36,13 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/subir', [subirArchivo::class, 'subirArchivo'])->name('subir');
+Route::post('/subir', [subirArchivo::class, 'subirArchivo'])->name('subir');
 Route::get('/empleados', [subirArchivo::class, 'mostrarEmpleados'])->name('empleados');
-Route::get('/detalle-registro/{id}', [subirArchivo::class, 'detalleRegistro'])->name('detalle-registro');
+Route::get('/detalle-registro/{empleado}', [subirArchivo::class, 'detalleRegistro'])->name('detalle-registro');
 Route::get('/contabilidad', [subirArchivo::class, 'contabilidad'])->name('contabilidad');
 
-Route::get('/usuario', [UserController::class, 'mostrarUsuarios'])->name('usuario');
-Route::get('/usuarios', [UserController::class, 'insertarUsuario'])->name('usuarios');
+Route::get('/formulario-new-usuario', [UserController::class, 'mostrarFormularioUsuario'])->name('formulario-new-usuario');
+Route::get('/new-usuario', [UserController::class, 'insertarUsuario'])->name('new-usuario');
+Route::get('/usuarios', [UserController::class, 'mostrarUsuarios'])->name('usuarios');
+Route::get('/formulario-editar/{user}', [UserController::class, 'mostrarFormularioEditar'])->name('formulario-editar-user');
+Route::get('/editar/{user}', [UserController::class, 'editarUsuario'])->name('editar-user');
+Route::get('/eliminar/{user}', [UserController::class, 'eliminar'])->name('eliminar');
+
 
 Route::get('/glosas', [glosasController::class, 'mostrarGlosas'])->name('glosas');
 Route::get('/formulario-insertar-glosa', [glosasController::class, 'mostrarFormularioInsertar'])->name('formulario-insertar-glosa');
@@ -52,10 +57,5 @@ Route::get('/editar/{glosa}', [glosasController::class, 'editar'])->name('editar
 Route::get('/formulario-estatus/{glosa}', [glosasController::class, 'mostrarFormularioEstatus'])->name('formulario-estatus-glosa');
 Route::get('/estatus/{glosa}', [glosasController::class, 'estatus'])->name('estatus');
 Route::get('/reporte', [glosasController::class, 'mostrarReporte'])->name('reporte');
-
-//Route::get('/producto/pdf', [ProductoController::class, 'createPDF'])->name('producto.pdf');
-Route::get('/imprimir', [glosasController::class, 'imprimir'])->name('imprimir');
-//Route::name('print')->get('/imprimir', 'GeneradorController@imprimir');
-
 
 require __DIR__.'/auth.php';

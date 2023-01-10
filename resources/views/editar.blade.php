@@ -95,7 +95,7 @@
 
                 <div class="columns ">   
                     <div class="column is-2"> 
-                        <label for="nomina"><b>Nomina  {{$glosa->id_nomina}}</b></label>                        
+                        <label for="nomina"><b>Nomina</b></label>                        
                     </div>
                     <div class="column is-3"> 
                         <div class="select is-link">

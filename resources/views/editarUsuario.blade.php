@@ -5,25 +5,28 @@
 
     @section('content')
     <div class="box m-5 p-2 has-background-primary-light">
-        <form method="get" action="{{ route('new-usuario') }}">
+        <form method="get" action="{{route('editar', $user->id)}}" accept-charset="UTF-8">
             <div class="columns ">   
-                    <div class="column is-2"> 
-                        <label for="nombre"><b>Nombre </b></label> 
-                    </div>
-                    <div class="column is-3"> 
-                        <input type="text" name="nombre" class="input is-link"  value="{{ old('nombre') }}" required autofocus>
-                        @error('nombre')
-                            <p class="error-message">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>  
-            <div>
+                <div> 
+                    <input type="hidden" name="id" value="{{$user->id}}">
+                </div>
+                <div class="column is-2"> 
+                    <label for="nombre"><b>Nombre </b></label> 
+                </div>
+                <div class="column is-3"> 
+                    <input type="text" name="nombre" class="input is-link"  value="{{ old('name', $user->name) }}" required autofocus>
+                    @error('nombre')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>  
+            
             <div class="columns ">   
                     <div class="column is-2"> 
                         <label for="email"><b>Email </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="text" name="email" class="input is-link"  value="{{ old('email') }}" required>
+                        <input type="text" name="email" class="input is-link"  value="{{ old('email', $user->email) }}" required>
                         @error('email')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
@@ -35,7 +38,7 @@
                         <label for="rol"><b>Rol </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="text" name="rol" class="input is-link"  value="{{ old('rol') }}" required >
+                        <input type="text" name="rol" class="input is-link"  value="{{ old('rol', $user->rol) }}" required >
                         @error('rol')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
@@ -47,7 +50,7 @@
                         <label for="password"><b>Contraseña </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="password" name="password" class="input is-link"  value="{{ old('password') }}" required >
+                        <input type="password" name="password" class="input is-link"  value="{{ old('password')}}" required >
                         @error('password')
                             <p class="error-message">{{ $message }}</p>
                         @enderror

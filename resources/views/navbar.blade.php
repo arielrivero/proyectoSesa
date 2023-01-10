@@ -52,10 +52,6 @@
                             <a class="navbar-item" href="{{url('glosas')}}">
                             Captura
                             </a>
-
-                            <a class="navbar-item" href="{{url('reporte')}}">
-                            Reporte
-                            </a>
                         </div>
                     </div>
                     <div class="navbar-item has-dropdown is-hoverable">
@@ -64,9 +60,6 @@
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{{url('/newusuarios')}}">
-                                Nuevo usuario
-                            </a>
                             <a class="navbar-item" href="{{url('/usuarios')}}">
                                 Usuarios
                             </a>
@@ -77,9 +70,25 @@
             
 
                 <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-danger" @click="logout">Cerrar sesión </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            
+                            {{ Auth::user()->name }}
+                            
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="{{url('/profile')}}">
+                                Perfil
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="navbar-item" href="{{url('/logout')}}"
+                                    onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                                Cerrar sesión
+                                </a>
+                            </form>
                         </div>
                     </div>
                 </div>

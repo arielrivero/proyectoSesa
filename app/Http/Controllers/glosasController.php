@@ -49,24 +49,18 @@ class glosasController extends Controller
     }
     public function mostrarGlosas(Request $request)
     {
-        $nomina = $request->get('nomina');
+        $id_nomina = $request->get('nomina');
         $anio = $request->get('anio');
 
         $query = Glosa::select('*')->with(['nomina']);
-        if($nomina != "")
-           $query->where('nomina', 'like', '%'.$nomina.'%');
+        if($id_nomina != "")
+           $query->where('id_nomina', 'like', '%'.$id_nomina.'%');
 
         if($anio != "")
            $query->where('anio', 'like', '%'.$anio.'%');
 
         $records = $query->get();
-        return view('glosa')->with(['glosas' => $records,'nomina'=>$nomina,'anio'=>$anio]);
-    }
-    public function mostrarReporte(Request $request)
-    {
-        $query = Glosa::select('*');
-        $records = $query->get();
-        return view('reporte')->with(['glosas' => $records]);
+        return view('glosa')->with(['glosas' => $records,'id_nomina'=>$id_nomina,'anio'=>$anio]);
     }
     public function editar(Request $request, Glosa $glosa)
     {
@@ -109,7 +103,7 @@ class glosasController extends Controller
             'fecha_entrega_resp' => ['after_or_equal:fecha_entrega_archivo', 'nullable'],
         ],$message =['after_or_equal'=>'No se puede ingresar una fecha menor a la del campo anterior']);
 
-        
+        $fechaElaboracion = Carbon::create($glosas->fecha_elaboracion);
         $entregaSRH = Carbon::create($glosas->fecha_entrega_srh);
         $devolucionSRH = Carbon::create($glosas->fecha_devolucion_srh);
         $entregaDA = Carbon::create($glosas->fecha_entrega_da);
@@ -118,6 +112,9 @@ class glosasController extends Controller
         $entregaArchivo = Carbon::create($glosas->fecha_entrega_archivo);
         $entregaResp = Carbon::create($glosas->fecha_entrega_resp);
 
+        if($entregaSRH->gt($fechaElaboracion) || $entregaSRH == $fechaElaboracion || $entregaSRH == ''){
+            $glosas->estatus = "Firma DOP";
+        }
 
         if($devolucionSRH->gt($entregaSRH) || $devolucionSRH == ''){
             $glosas->estatus = "Firma SRH";
@@ -148,13 +145,18 @@ class glosasController extends Controller
         
     }
 
-    public function imprimir(){
+    public function mostrarReporte(Request $request){
 
-        $glosas = Glosa::all();
+        $nomina = $request->get('nomina');
+        $anio = $request->get('anio');
+        $image = "data:image/png;base64,".base64_encode(file_get_contents('C:\laragon\www\dopproject\public\img\logoSesa.png'));
+        //dd($nomina,$anio);
+
+        $glosas = Glosa::whereIdNomina($nomina)->whereAnio($anio)->get();
 
         //view()->share('glosas', $glosas);
-        $pdf = \PDF::loadView('ejemplo', compact('glosas'))->setPaper('a4', 'landscape');
-        return $pdf->download('ejemplo.pdf');
+        $pdf = \PDF::loadView('ejemplo', compact('glosas', 'image'))->setPaper('a4', 'landscape');
+        return $pdf->stream('ejemplo.pdf');
    }
 
 }
