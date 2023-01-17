@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('anio');
             $table->integer('quincena');
             $table->string('nombre', 50);
-            $table->string('estatus', 50);
+            $table->string('estatus', 50)->nullable();
             $table->string('ubicacion_fisica', 50);
             $table->date('fecha_elaboracion')->nullable();
             $table->date('fecha_entrega_srh')->nullable();

@@ -11,12 +11,13 @@
                         <label for="anio"><b>Año </b></label>
                     </div>
                     <div class="column is-3"> 
+                    <?php $Year = date("Y"); ?>
                         <div class="select is-link">
                             <select name="anio">
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                                <option>2025</option>
+                                <option @if($Year=="2022") selected @endif >2022</option>
+                                <option @if($Year=="2023") selected @endif >2023</option>
+                                <option @if($Year=="2024") selected @endif >2024</option>
+                                <option @if($Year=="2025") selected @endif >2025</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +85,7 @@
                         <label for="fecha_elaboracion"><b>Fecha de elaboración </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="date" name="fecha_elaboracion" class="input is-link" value="{{ old('fecha_elaboracion') }}">
+                        <input type="date" name="fecha_elaboracion" class="input is-link" value="<?php echo date("Y-m-d");?>">
                     </div>
                 </div>   
 

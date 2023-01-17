@@ -16,7 +16,14 @@
                         </div>
                         <div class="column is-3">
                             <label for="rol"><b>Rol</b></label>
-                            <input type="text" name="rol" class="input is-link" placeholder="Rol" value="{{$rol}}">
+                            <br>
+                            <div class="select is-link">
+                                <select name="rol" id="rol">
+                                    <option value="1" @if($id_rol=="1") selected @endif > Administrador</option>
+                                    <option value="2" @if($id_rol=="2") selected @endif > Usuario</option>
+                                </select>
+                            </div>
+                           
                         </div>
                         <div class="column is-5">
                             <br>
@@ -50,15 +57,12 @@
                         <td>{{ $row->id }}</td>
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->email }}</td>
-                        <td>{{ $row->rol }}</td>
+                        <td>{{ $row->rol->nombre }}</td>
                         <td>
                         <div class="columns">
-                            <div class="column is-narrow"><a class="button is-primary" href="{{ url('formulario-editar',$row['id']) }}">Editar</a></div>    
-                            <div class="column is-narrow"> 
-                              
-                                    <a class="button is-danger" href="{{ url('eliminar',$row['id']) }}">Eliminar</a>
-                                  
-                            </div>   
+                            <div class="column is-narrow"><a class="button is-primary" href="{{ url('formulario-editar',$row['id']) }}">Editar</a></div> 
+                            <div class="column is-narrow"><a class="button is-info" href="{{ url('formulario-editar-contrasenia',$row['id']) }}">Editar contraseña</a></div>       
+                            <div class="column is-narrow"><a class="button is-danger" href="{{ url('eliminar',$row['id']) }}">Eliminar</a></div>   
                         </td>  
                     </tr>
                 @endforeach

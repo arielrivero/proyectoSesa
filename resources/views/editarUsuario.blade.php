@@ -38,32 +38,13 @@
                         <label for="rol"><b>Rol </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="text" name="rol" class="input is-link"  value="{{ old('rol', $user->rol) }}" required >
+                        <div class="select is-link">
+                            <select name="rol"> 
+                                <option value="1" @if($user->id_rol=="1") selected @endif >Administrador</option>
+                                <option value="2" @if($user->id_rol=="2") selected @endif >Usuario</option>
+                            </select>
+                        </div>
                         @error('rol')
-                            <p class="error-message">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>  
-            <div>
-            <div class="columns ">   
-                    <div class="column is-2"> 
-                        <label for="password"><b>Contraseña </b></label> 
-                    </div>
-                    <div class="column is-3"> 
-                        <input type="password" name="password" class="input is-link"  value="{{ old('password')}}" required >
-                        @error('password')
-                            <p class="error-message">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>  
-            <div>
-            <div class="columns ">   
-                    <div class="column is-2"> 
-                        <label for="password_confirmation"><b>Confirmar contraseña </b></label> 
-                    </div>
-                    <div class="column is-3"> 
-                        <input type="password" name="password_confirmation" class="input is-link"  value="{{ old('password_confirmation') }}" required >
-                        @error('password_confirmation')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
                     </div>

@@ -74,7 +74,7 @@
                     </tr>
                 </thead>
                 @foreach ($glosas as $row) 
-            
+             
                     <tr>
                         <td>{{ $row->nomina->nombre }}</td>
                         <td>{{ $row->anio }}</td>

@@ -35,7 +35,12 @@
                         <label for="rol"><b>Rol </b></label> 
                     </div>
                     <div class="column is-3"> 
-                        <input type="text" name="rol" class="input is-link"  value="{{ old('rol') }}" required >
+                        <div class="select is-link">
+                            <select name="rol">
+                                <option value="1">Administrador</option>
+                                <option value="2">Usuario</option>
+                            </select>
+                        </div>
                         @error('rol')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
