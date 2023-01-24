@@ -135,7 +135,7 @@
 
                 <div class="columns "> 
                     <div class="column is-11">
-                        <input class="button is-info" type="submit" value="Editar" >
+                        <input class="button is-info" type="submit" value="Editar"  >
                     </div>
                     <div class="column is-1">
                         <a class="button is-warning" href="{{ url('glosas')}}">Volver</a>

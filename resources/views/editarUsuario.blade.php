@@ -16,7 +16,7 @@
 
     @section('content')
     <div class="box m-5 p-2 has-background-primary-light">
-        <form method="get" action="{{route('editar', $user->id)}}" accept-charset="UTF-8">
+        <form method="get" action="{{route('editar-user', $user->id)}}" accept-charset="UTF-8">
             <div class="columns ">   
                 <div> 
                     <input type="hidden" name="id" value="{{$user->id}}">

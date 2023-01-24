@@ -125,7 +125,7 @@ class glosasController extends Controller
         }
 
         if($devolucionDA->gt($entregaDA) || $devolucionDA == ''){
-            $glosas->estatus = "Digitaliazción";
+            $glosas->estatus = "Digitalización";
         }
 
         if($digitalizacion->gt($devolucionDA) || $digitalizacion == ''){

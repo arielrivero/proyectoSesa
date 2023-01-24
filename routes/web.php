@@ -45,7 +45,7 @@ Route::get('/formulario-new-usuario', [UserController::class, 'mostrarFormulario
 Route::get('/new-usuario', [UserController::class, 'insertarUsuario'])->name('new-usuario');
 Route::get('/usuarios', [UserController::class, 'mostrarUsuarios'])->name('usuarios');
 Route::get('/formulario-editar-usuario/{user}', [UserController::class, 'mostrarFormularioEditar'])->name('formulario-editar-user');
-Route::get('/editar/{user}', [UserController::class, 'editarUsuario'])->name('editar-user');
+Route::get('/editar-usuario/{user}', [UserController::class, 'editarUsuario'])->name('editar-user');
 Route::get('/formulario-editar-contrasenia/{user}', [UserController::class, 'mostrarFormularioEditarcontrasenia'])->name('formulario-editar-contrasenia-user');
 Route::get('/editar-contrasenia/{user}', [UserController::class, 'editarcontrasenia'])->name('editar-contrasenia');
 Route::get('/eliminar/{user}', [UserController::class, 'eliminar'])->name('eliminar');
