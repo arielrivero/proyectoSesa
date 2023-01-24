@@ -60,7 +60,7 @@
                         <td>{{ $row->rol->nombre }}</td>
                         <td>
                         <div class="columns">
-                            <div class="column is-narrow"><a class="button is-primary" href="{{ url('formulario-editar',$row['id']) }}">Editar</a></div> 
+                            <div class="column is-narrow"><a class="button is-primary" href="{{ url('formulario-editar-usuario',$row['id']) }}">Editar</a></div> 
                             <div class="column is-narrow"><a class="button is-info" href="{{ url('formulario-editar-contrasenia',$row['id']) }}">Editar contraseña</a></div>       
                             <div class="column is-narrow"><a class="button is-danger" href="{{ url('eliminar',$row['id']) }}">Eliminar</a></div>   
                         </td>  

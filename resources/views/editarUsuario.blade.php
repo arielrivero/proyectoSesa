@@ -1,6 +1,17 @@
 @extends('navbar')
     @section('title')
     <title>Usuarios</title>
+    <style>
+         .error-message {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        label {
+            margin: 10px;
+        }
+
+    </style>
     @stop
 
     @section('content')

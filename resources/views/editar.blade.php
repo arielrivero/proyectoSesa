@@ -1,9 +1,21 @@
 @extends('navbar')
     @section('title')
     <title>Editar</title>
+    <style>
+         .error-message {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        label {
+            margin: 10px;
+        }
+
+    </style>
     @stop
 
     @section('content')
+    
         <div class="box m-5 p-2 has-background-primary-light">
             <form method="get" action="{{route('editar', $glosa->id)}}" accept-charset="UTF-8">
                 <div class="columns "> 
@@ -132,3 +144,4 @@
             </form>
         </div>
     @stop
+

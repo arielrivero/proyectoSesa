@@ -149,7 +149,7 @@ class glosasController extends Controller
 
         $nomina = $request->get('nomina');
         $anio = $request->get('anio');
-        $image = "data:image/png;base64,".base64_encode(file_get_contents('C:\laragon\www\dopproject\public\img\logoSesa.png'));
+        $image = "data:image/png;base64,".base64_encode(file_get_contents('C:\laragon\www\dopproject\storage\app\img\logoSesa.png'));
         //dd($nomina,$anio);
 
         $glosas = Glosa::whereIdNomina($nomina)->whereAnio($anio)->get();

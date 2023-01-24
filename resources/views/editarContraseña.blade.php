@@ -1,6 +1,17 @@
 @extends('navbar')
     @section('title')
     <title>Usuarios</title>
+    <style>
+         .error-message {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        label {
+            margin: 10px;
+        }
+
+    </style>
     @stop
 
     @section('content')
@@ -17,7 +28,9 @@
                     </div>
                     <div class="column is-3"> 
                         <input type="password" name="password" class="input is-link"  value="{{ old('password')}}" required >
-                        
+                        @error('password')
+                            <p class="error-message">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>  
             <div>
@@ -27,7 +40,9 @@
                     </div>
                     <div class="column is-3"> 
                         <input type="password" name="password_confirmation" class="input is-link"  value="{{ old('password_confirmation') }}" required >
-                        
+                        @error('password')
+                            <p class="error-message">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>  
             <div>

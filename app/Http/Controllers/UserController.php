@@ -27,10 +27,10 @@ class UserController extends Controller
     public function insertarUsuario(Request $request)
     {
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'nombre' => ['required', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ],$message =['required'=>'El campo :attribute es requerido']);
 
         $nombre = $request->get('nombre');
         $email = $request->get('email');
@@ -52,15 +52,16 @@ class UserController extends Controller
             'nombre' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             
-        ]);
+        ],$message =['required'=>'El campo :attribute es requerido']);
 
         $id = $request->get('id');
-        $user = User::find($id);
-        $nombre = $request->get('nombre');
-        $email = $request->get('email');
+        $users = User::find($id);
+        
+        $users->name = $request->get('nombre');
+        //dd($users->name);
+        $users->email = $request->get('email');
         $users->id_rol = $request->get('rol');
-
-        $user->save();
+        $users->save();
         return redirect()->route('usuarios');
     }
 
@@ -68,13 +69,14 @@ class UserController extends Controller
     {
         $request->validate([
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ],$message =['required'=>'El campo :attribute es requerido']);
 
         $id = $request->get('id');
-        $user = User::find($id);
-        $password = Hash::make($request->password);
+        $users = User::find($id);
+        $users->password = Hash::make($request->password);
+        //$password = Hash::make($request->password);
 
-        $user->save();
+        $users->save();
         return redirect()->route('usuarios');
     }
 
