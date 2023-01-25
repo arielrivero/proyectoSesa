@@ -22,12 +22,13 @@
                         </div>
                         <div class="column is-narrow">
                             <label for="anio"><b>Año</b></label><br/>
+                            <?php $Year = date("Y"); ?>
                             <div class="select is-link">
                                 <select name="anio" id="anio">
-                                    <option value="2022" @if($anio=="2022") selected @endif> 2022</option>
-                                    <option value="2023" @if($anio=="2023") selected @endif> 2023</option>
-                                    <option value="2024" @if($anio=="2024") selected @endif> 2024</option>
-                                    <option value="2025" @if($anio=="2025") selected @endif> 2025</option>
+                                    <option @if($Year=="2022") selected @endif >2022</option>
+                                    <option @if($Year=="2023") selected @endif >2023</option>
+                                    <option @if($Year=="2024") selected @endif >2024</option>
+                                    <option @if($Year=="2025") selected @endif >2025</option>
                                 </select>
                             </div> 
                     

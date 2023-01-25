@@ -21,7 +21,7 @@
                     <div class="column is-2">
                         <label for="anio"><b>Año </b></label>
                     </div>
-                    <div class="column is-3"> 
+                    <div class="column is-3">  
                     <?php $Year = date("Y"); ?>
                         <div class="select is-link">
                             <select name="anio">
