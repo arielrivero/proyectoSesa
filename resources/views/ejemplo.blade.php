@@ -29,7 +29,7 @@
             }
 
             .title th:nth-child(2) {
-                width: 55   0px; 
+                width: 550px; 
             }
 
 
