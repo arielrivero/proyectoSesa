@@ -43,7 +43,7 @@ class glosasController extends Controller
             'fecha_elaboracion' => $fecha_elaboracion,
             'observaciones' => $observacion
         ];
-        
+
         $glosa = Glosa::create($datos);
         return redirect()->route('glosas');
     }
@@ -142,14 +142,17 @@ class glosasController extends Controller
 
         $glosas->save();
         return redirect()->route('glosas');
-        
+
     }
 
     public function mostrarReporte(Request $request){
 
         $nomina = $request->get('nomina');
         $anio = $request->get('anio');
-        $image = "data:image/png;base64,".base64_encode(file_get_contents('C:\laragon\www\dopproject\storage\app\img\logoSesa.png'));
+
+        $ruta_logo = storage_path() .DIRECTORY_SEPARATOR. 'app'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'logoSesa.png';
+
+        $image = "data:image/png;base64,".base64_encode(file_get_contents($ruta_logo));
         //dd($nomina,$anio);
 
         $glosas = Glosa::whereIdNomina($nomina)->whereAnio($anio)->get();

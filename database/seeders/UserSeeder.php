@@ -18,11 +18,20 @@ class UserSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         DB::table('users')->insert([
-            
+
             'name' => 'Ariel Rivero',
             'email' => 'aarm10@outlook.com',
             'id_rol' => '1',
             'password' =>  bcrypt('admin123'),
+
+        ]);
+
+        DB::table('users')->insert([
+
+            'name' => 'Andres Pinto',
+            'email' => 'andrespinto.dop@gmail.com',
+            'id_rol' => '1',
+            'password' =>  bcrypt('123456'),
 
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
