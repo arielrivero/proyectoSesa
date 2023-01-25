@@ -9,12 +9,19 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
+        <style>
+            body {
+                background-image: url({{asset('img/fondologin.jpg')}});
+                background-size: cover;
+            }
+        </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+        
         <div class="font-sans text-gray-900 antialiased">
+            <h4>hola</h4>
             {{ $slot }}
         </div>
     </body>

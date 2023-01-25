@@ -6,15 +6,17 @@
     @section('content')
     
         <div class="box m-5 p-2">
-           
+            
+            <h4 class="title is-3">Tabla de usuarios</h4>
+            
             <div class="box m-5 p-2">
                 <form method="get" action="{{route('usuarios')}}" accept-charset="UTF-8">
                     <div class="columns has-background-primary-light"> 
-                        <div class="column is-3">
+                        <div class="column is-narrow">
                             <label for="name"><b>Name </b></label> 
                             <input type="text" name="name" class="input is-link" placeholder="name" value="{{$name}}">
                         </div>
-                        <div class="column is-3">
+                        <div class="column is-narrow">
                             <label for="rol"><b>Rol</b></label>
                             <br>
                             <div class="select is-link">
@@ -25,7 +27,7 @@
                             </div>
                            
                         </div>
-                        <div class="column is-5">
+                        <div class="column is-6">
                             <br>
                             <input class="button is-info" type="submit" value="Buscar" >
                         </div>
@@ -38,8 +40,7 @@
                 </form>
             </div>
 
-            <h4 class="title is-3">Tabla de usuarios</h4>
-            <br>
+            
             <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                 <thead>
                     <tr>

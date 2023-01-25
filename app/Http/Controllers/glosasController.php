@@ -86,6 +86,7 @@ class glosasController extends Controller
     {
         $id = $request->get('id');
         $glosas = Glosa::find($id);
+        $glosas->fecha_elaboracion = $request->get('fecha_elaboracion');
         $glosas->fecha_entrega_srh = $request->get('fecha_entrega_srh');
         $glosas->fecha_devolucion_srh = $request->get('fecha_devolucion_srh');
         $glosas->fecha_entrega_da = $request->get('fecha_entrega_da');
@@ -95,13 +96,15 @@ class glosasController extends Controller
         $glosas->fecha_entrega_resp = $request->get('fecha_entrega_resp');
 
         $request->validate([
-            'fecha_devolucion_srh' => [ 'after_or_equal:fecha_entrega_srh', 'nullable'],
-            'fecha_entrega_da' => [ 'after_or_equal:fecha_devolucion_srh', 'nullable'],
-            'fecha_devolucion_da' => [ 'after_or_equal:fecha_entrega_da', 'nullable'],
-            'fecha_digitalizacion' => [ 'after_or_equal:fecha_devolucion_da', 'nullable'],
-            'fecha_entrega_archivo' => [ 'after_or_equal:fecha_digitalizacion', 'nullable'],
-            'fecha_entrega_resp' => ['after_or_equal:fecha_entrega_archivo', 'nullable'],
-        ],$message =['after_or_equal'=>'No se puede ingresar una fecha menor a la del campo anterior']);
+            'fecha_elaboracion' => [ 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_entrega_srh' => [ 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_devolucion_srh' => [ 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_entrega_da' => [ 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_devolucion_da' => [ 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_digitalizacion' => [ 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_entrega_archivo' => [ 'after_or_equal:fecha_digitalizacion', 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+            'fecha_entrega_resp' => ['after_or_equal:fecha_entrega_archivo', 'after_or_equal:fecha_digitalizacion', 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
+        ],$message =['after_or_equal'=>'No se puede ingresar una fecha anterior a la de los campos pasados', 'before_or_equal'=>'No se puede ingresar una fecha posterior a la actual']);
 
         $fechaElaboracion = Carbon::create($glosas->fecha_elaboracion);
         $entregaSRH = Carbon::create($glosas->fecha_entrega_srh);
@@ -111,8 +114,10 @@ class glosasController extends Controller
         $digitalizacion = Carbon::create($glosas->fecha_digitalizacion);
         $entregaArchivo = Carbon::create($glosas->fecha_entrega_archivo);
         $entregaResp = Carbon::create($glosas->fecha_entrega_resp);
+        //dd($fechaElaboracion);
+        $glosas->estatus = "Creado";
 
-        if($entregaSRH->gt($fechaElaboracion) || $entregaSRH == $fechaElaboracion || $entregaSRH == ''){
+        if($entregaSRH->gt($fechaElaboracion)){
             $glosas->estatus = "Firma DOP";
         }
 
@@ -158,7 +163,7 @@ class glosasController extends Controller
         $glosas = Glosa::whereIdNomina($nomina)->whereAnio($anio)->get();
 
         //view()->share('glosas', $glosas);
-        $pdf = \PDF::loadView('ejemplo', compact('glosas', 'image'))->setPaper('a4', 'landscape');
+        $pdf = \PDF::loadView('ejemplo', compact('glosas', 'image'))->setPaper('letter', 'landscape');
         return $pdf->stream('ejemplo.pdf');
    }
 

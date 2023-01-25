@@ -18,6 +18,17 @@
         <div class="box m-5 p-2 has-background-primary-light">
             <form method="get" action="{{route('estatus', $glosa->id)}}" accept-charset="UTF-8">
             
+                <div class="columns ">   
+                    <div class="column is-2"> 
+                        <label for="fecha_elaboracion"><b>Fecha elaboracion</b></label> 
+                    </div>
+                    <div class="column is-3"> 
+                        <input type="date" name="fecha_elaboracion" class="input is-link" value="{{ old('fecha_elaboracion', $glosa->fecha_elaboracion) }}">
+                        @error('fecha_elaboracion')
+                            <p class="error-message">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
 
                 <div class="columns "> 
                     <div> 
@@ -28,7 +39,9 @@
                     </div>
                     <div class="column is-3"> 
                         <input type="date" name="fecha_entrega_srh" class="input is-link" value="{{ old('fecha_entrega_srh', $glosa->fecha_entrega_srh) }}">
-                        
+                        @error('fecha_entrega_srh')
+                            <p class="error-message">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

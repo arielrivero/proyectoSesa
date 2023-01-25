@@ -6,7 +6,10 @@
     @section('content')
     
         <div class="box m-5 p-2">
-        
+
+            <h4 class="title is-3">Tabla de empleados</h4>
+
+           
         
             <div class="box m-5 p-2">
                 <form method="get" action="{{route('empleados')}}" accept-charset="UTF-8">
@@ -31,9 +34,7 @@
       
             
 
-            <h4 class="title is-3">Tabla de empleados</h4>
-
-            <br>
+            
 
             <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
 

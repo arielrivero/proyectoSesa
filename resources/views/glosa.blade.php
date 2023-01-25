@@ -5,6 +5,8 @@
 
     @section('content')
         <div class="box m-5 p-2">
+
+            <h4 class="title is-3">Control de glosas</h4>
     
             <div class="box m-5 p-2 has-background-primary-light">
                 <form method="get" action="{{route('glosas')}}" accept-charset="UTF-8">
@@ -54,16 +56,13 @@
     
             
 
-            <h4 class="title is-3">Control de glosas</h4>
-
-            <br>
+            
 
             <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
 
                 <thead>
                     <tr>
                         <th>Nomina</th>
-                        <th>Año</th>
                         <th>Quincena</th>
                         <th>Nombre</th>
                         <th>Ubicación física</th>
@@ -78,8 +77,7 @@
              
                     <tr>
                         <td>{{ $row->nomina->nombre }}</td>
-                        <td>{{ $row->anio }}</td>
-                        <td>{{ $row->quincena }}</td>
+                        <td>{{ $row->anio }}/{{ $row->quincena }}</td>
                         <td>{{ $row->nombre }}</td>
                         <td>{{ $row->ubicacion_fisica }}</td>
                         <td>{{ $row->fecha_elaboracion }}</td>

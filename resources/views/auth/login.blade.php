@@ -1,9 +1,12 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <img src="{{asset('img/logoSesa.png')}}" width="200" height="28">
-            </a>
+            
+                <div class="flex flex-col sm:justify-center items-center">
+                    <img src="{{asset('img/logoSesa.png')}}" width="200" height="28">
+                </div>
+                
+           
         </x-slot>
 
         <!-- Session Status -->

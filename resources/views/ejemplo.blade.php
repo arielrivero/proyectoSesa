@@ -24,6 +24,26 @@
                 font-weight: bold;
             }
 
+            table th:nth-child(5) {
+                width: 60px; 
+            }
+
+            table th:nth-child(6) {
+                width: 60px; 
+            }
+
+            table th:nth-child(7) {
+                width: 60px; 
+            }
+
+            table th:nth-child(8) {
+                width: 60px; 
+            }
+
+            table th:nth-child(9) {
+                width: 300px; 
+            }
+
             .title th:nth-child(1) {
                 width: 230px; 
             }
@@ -41,7 +61,7 @@
             <br>-->
             <tr>
                 <th><img src="<?php echo $image ?>" /></th>
-                <th><h3  style="text-align:center"> Departamento de Operación del Pago <br> Reporte de glosas {{$glosas->first()->nomina->nombre}} <br> {{$glosas->first()->anio}} </h3></th>
+                <th><b><h2 style="text-align:center"> Departamento de Operación del Pago <br> Reporte de glosas {{$glosas->first()->nomina->nombre}} <br> {{$glosas->first()->anio}} </h2></b></th>
                 
             </tr>
         </table>
@@ -55,10 +75,10 @@
                     <th>Nombre</th>
                     <th>Estatus</th>
                     <th>Ubicación física</th>
-                    <th>Fecha de elaboración</th>
-                    <th>Fecha entrega SRH</th>
-                    <th>Fecha entrega DA</th>
-                    <th>Fecha devolución DA</th>
+                    <th>Fecha elaboración</th>
+                    <th>Fecha E. SRH</th>
+                    <th>Fecha E. DA</th>
+                    <th>Fecha D. DA</th>
                    <!-- <th>Fecha digitalización</th>
                     <th>Fecha entrega archivo</th>
                     <th>Fecha entrega resp</th>-->
