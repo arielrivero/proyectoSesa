@@ -96,15 +96,69 @@ class glosasController extends Controller
         $glosas->fecha_entrega_resp = $request->get('fecha_entrega_resp');
 
         $request->validate([
-            'fecha_elaboracion' => [ 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_entrega_srh' => [ 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_devolucion_srh' => [ 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_entrega_da' => [ 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_devolucion_da' => [ 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_digitalizacion' => [ 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_entrega_archivo' => [ 'after_or_equal:fecha_digitalizacion', 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-            'fecha_entrega_resp' => ['after_or_equal:fecha_entrega_archivo', 'after_or_equal:fecha_digitalizacion', 'after_or_equal:fecha_devolucion_da', 'after_or_equal:fecha_entrega_da', 'after_or_equal:fecha_devolucion_srh', 'after_or_equal:fecha_entrega_srh', 'after_or_equal:fecha_elaboracion', 'nullable', 'before_or_equal:' . now()->format('Y-m-d')],
-        ],$message =['after_or_equal'=>'No se puede ingresar una fecha anterior a la de los campos pasados', 'before_or_equal'=>'No se puede ingresar una fecha posterior a la actual']);
+            'fecha_elaboracion' => [ 'nullable', 
+                                     'required_with:fecha_entrega_srh',
+                                     'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_entrega_srh' => [ 'after_or_equal:fecha_elaboracion', 
+                                     'nullable',
+                                     'required_with:fecha_devolucion_srh', 
+                                     'before_or_equal:' . now()->format('Y-m-d')],
+                                     
+            'fecha_devolucion_srh' => [ 'after_or_equal:fecha_entrega_srh',
+                                        'after_or_equal:fecha_elaboracion', 
+                                        'nullable',
+                                        'required_with:fecha_entrega_da', 
+                                        'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_entrega_da' => [ 'after_or_equal:fecha_devolucion_srh', 
+                                    'after_or_equal:fecha_entrega_srh', 
+                                    'after_or_equal:fecha_elaboracion', 
+                                    'nullable', 
+                                    'required_with:fecha_devolucion_da',
+                                    'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_devolucion_da' => [ 'after_or_equal:fecha_entrega_da', 
+                                       'after_or_equal:fecha_devolucion_srh',
+                                       'after_or_equal:fecha_entrega_srh', 
+                                       'after_or_equal:fecha_elaboracion', 
+                                       'nullable', 
+                                       'required_with:fecha_digitalizacion',
+                                       'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_digitalizacion' => [ 'after_or_equal:fecha_devolucion_da', 
+                                        'after_or_equal:fecha_entrega_da', 
+                                        'after_or_equal:fecha_devolucion_srh', 
+                                        'after_or_equal:fecha_entrega_srh', 
+                                        'after_or_equal:fecha_elaboracion', 
+                                        'nullable', 
+                                        'required_with:fecha_entrega_archivo',
+                                        'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_entrega_archivo' => [ 'after_or_equal:fecha_digitalizacion', 
+                                         'after_or_equal:fecha_devolucion_da', 
+                                         'after_or_equal:fecha_entrega_da', '
+                                         after_or_equal:fecha_devolucion_srh', 
+                                         'after_or_equal:fecha_entrega_srh', 
+                                         'after_or_equal:fecha_elaboracion', 
+                                         'nullable', 
+                                         'required_with:fecha_entrega_resp',
+                                         'before_or_equal:' . now()->format('Y-m-d')],
+
+            'fecha_entrega_resp' => [ 'after_or_equal:fecha_entrega_archivo', 
+                                      'after_or_equal:fecha_digitalizacion', 
+                                      'after_or_equal:fecha_devolucion_da', 
+                                      'after_or_equal:fecha_entrega_da', 
+                                      'after_or_equal:fecha_devolucion_srh', 
+                                      'after_or_equal:fecha_entrega_srh', 
+                                      'after_or_equal:fecha_elaboracion', 
+                                      'nullable', 
+                                      
+                                      'before_or_equal:' . now()->format('Y-m-d')],
+        ],
+            $message =[ 'after_or_equal'=>'No se puede ingresar una fecha anterior a la de los campos pasados',
+                        'required_with' => 'Esta campo no puede estar vacio',
+                        'before_or_equal'=>'No se puede ingresar una fecha posterior a la actual']);
 
         $fechaElaboracion = Carbon::create($glosas->fecha_elaboracion);
         $entregaSRH = Carbon::create($glosas->fecha_entrega_srh);
@@ -114,10 +168,13 @@ class glosasController extends Controller
         $digitalizacion = Carbon::create($glosas->fecha_digitalizacion);
         $entregaArchivo = Carbon::create($glosas->fecha_entrega_archivo);
         $entregaResp = Carbon::create($glosas->fecha_entrega_resp);
-        //dd($fechaElaboracion);
+        //dd($fechaElaboracion,$request->get('fecha_elaboracion'));
+
+        
         $glosas->estatus = "Creado";
 
         if($entregaSRH->gt($fechaElaboracion)){
+            
             $glosas->estatus = "Firma DOP";
         }
 
@@ -127,6 +184,7 @@ class glosasController extends Controller
 
         if($entregaDA->gt($devolucionSRH)){
             $glosas->estatus = "Firma DA";
+            
         }
 
         if($devolucionDA->gt($entregaDA) || $devolucionDA == ''){
